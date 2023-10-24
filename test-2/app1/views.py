@@ -4,6 +4,7 @@ from .serializers import siyo_serializer,ijti_serializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
+from .permissions import *
 from rest_framework.permissions import IsAuthenticated
 
 # from datetime import timedelta
@@ -26,20 +27,26 @@ from rest_framework.permissions import IsAuthenticated
 class AllContentView(generics.ListAPIView):
     queryset = SiyosiyNewModel.objects.all()
     serializer_class = siyo_serializer
+    permission_classes = (IsAuthenticated,StaffPermissionClass)
+
 
 class SCreateContentView(generics.CreateAPIView):
     queryset = SiyosiyNewModel.objects.all()
     serializer_class = siyo_serializer
+    permission_classes = (IsAuthenticated,AdminPermissionClass)
+
 
 
 class IDetailContentView(generics.ListAPIView):
     queryset=IjtimoiyNewModels.objects.all()
     serializer_class = ijti_serializer
+    permission_classes = (IsAuthenticated,StaffPermissionClass)
 
 
 class ICreateContentView(generics.CreateAPIView):
     queryset=IjtimoiyNewModels.objects.all()
     serializer_class = ijti_serializer
+    permission_classes = (IsAuthenticated,AdminPermissionClass)
 
 
 

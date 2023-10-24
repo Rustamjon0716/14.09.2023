@@ -2,6 +2,9 @@ from django.shortcuts import render,get_object_or_404
 from .models import task_name
 from .serializers import task_serializer
 from rest_framework import generics 
+from .permissions import *
+from rest_framework.permissions import IsAuthenticated
+
 
 
 
@@ -10,20 +13,26 @@ from rest_framework import generics
 class CreatePollsAPiView(generics.CreateAPIView):
     queryset = task_name.objects.all()
     serializer_class = task_serializer
+    permission_classes = (IsAuthenticated,AdminPermissionClass)
+
    
 
 class ListPollsApiView(generics.ListAPIView):
     queryset = task_name.objects.all()
     serializer_class = task_serializer
-    
+    permission_classes = (IsAuthenticated,StaffPermissionClass)
+
 
 class UpdateStatusPollsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = task_name.objects.all()
     serializer_class = task_serializer
+    permission_classes = (IsAuthenticated,StaffPermissionClass)
+
 
 class DeletePolsapiView(generics.DestroyAPIView):
     queryset=task_name.objects.all()
     serializer_class = task_serializer
+    permission_classes = (IsAuthenticated,StaffPermissionClass)
 
 # class ListContentView(APIView):
 #     def get(self, request):
